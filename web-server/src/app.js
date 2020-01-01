@@ -37,6 +37,15 @@ app.get('/help', (req, res) =>{
     })
 })
 
+app.get('/help/*', (req, res) =>{
+ 
+ //res.send('<h1>Help not found</h1>')
+    res.render("error", {
+        error: 'Help not found',
+       
+    })
+})
+
 app.get('/about', (req, res) =>{
     //res.send('About Page')
     res.render("about", {
@@ -44,14 +53,21 @@ app.get('/about', (req, res) =>{
         name: 'Luv Ralh'
     })
 })
-
-app.get('/weather', (req, res) =>{
-    res.send({
-        title: 'Weather Page',
-        temp: '29deg'
-
+app.get('*', (req, res) =>{
+    res.render("error", {
+        error: 'Page not found',
+        name: 'Luv Ralh'
     })
 })
+// app.get('/weather', (req, res) =>{
+//     res.send({
+//         title: 'Weather Page',
+//         temp: '29deg'
+
+//     })
+// })
+
+
 
 app.listen(3000, () => {
     console.log('Server is up on 3000')
