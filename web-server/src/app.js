@@ -72,7 +72,7 @@ app.get('/help', (req, res) =>{
     // res.send('<h1>Help is on its way!</h1>')
     res.render("help", {
         title: 'Help',
-        name: 'Luv Ralh'
+        helpText: 'Please contact at preetralh07@gmail.com'
     })
 })
 
