@@ -1,3 +1,7 @@
+const forecast = require('./util/forecast');
+const geocode = require('./util/geocode');
+
+
 const path =  require('path')
 
 const express = require('express')
@@ -27,6 +31,41 @@ app.get('', (req, res) =>{
      })
 //     res.send('Hello Express your self!')
  })
+ app.get('/weather', (req, res) =>{
+    if(!req.query.address){
+        return res.send({
+            error: 'Please peovide an address'
+        })
+    }
+
+    geocode(req.query.address, (error, data)=>{
+        if(error){
+            return res.send({
+                error: error
+            })
+        
+        }
+        forecast(data.latitude, data.longitude, (error, forecastdata) => {
+            if(error){
+                return res.send({
+                        error
+                })
+
+            }          
+            res.send({
+                    title: 'Weather Page',
+                    coordinates: data,
+                    data: forecastdata,
+                    data: forecastdata,
+                    address: req.query.address
+            
+                })
+            });
+    })
+    
+})
+
+
 
 app.get('/help', (req, res) =>{
  
@@ -59,13 +98,7 @@ app.get('*', (req, res) =>{
         name: 'Luv Ralh'
     })
 })
-// app.get('/weather', (req, res) =>{
-//     res.send({
-//         title: 'Weather Page',
-//         temp: '29deg'
 
-//     })
-// })
 
 
 
